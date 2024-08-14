@@ -7,16 +7,30 @@ const Statistics = ({ good, neutral, bad }) => {
     const positive = (good * 100 / all) || 0;
 
     return (
-        <div>
+        <table>
 
-            <StatisticsLine text={"good"} value={good} />
-            <StatisticsLine text={"neutral"} value={neutral} />
-            <StatisticsLine text={"bad"} value={bad} />
-            <StatisticsLine text={"all"} value={all} />
-            <StatisticsLine text={"average"} value={average} />
-            <StatisticsLine text={"positive %"} value={positive} />
+            <tbody>
+                <tr>
+                    <StatisticsLine text={"good"} value={good} />
+                </tr>
+                <tr>
+                    <StatisticsLine text={"neutral"} value={neutral} />
+                </tr>
+                <tr>
+                    <StatisticsLine text={"bad"} value={bad} />
+                </tr>
+                <tr>
+                    <StatisticsLine text={"all"} value={all} />
+                </tr>
+                <tr>
+                    <StatisticsLine text={"average"} value={average} />
+                </tr>
+                <tr>
+                    <StatisticsLine text={"positive %"} value={positive} />
+                </tr>
+            </tbody>
 
-        </div>
+        </table>
     )
 }
 export default Statistics

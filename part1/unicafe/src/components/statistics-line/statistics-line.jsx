@@ -1,9 +1,10 @@
 const StatisticsLine = ({ text, value }) => {
 
-    return(
-        <p>
-            {text} {value}
-        </p>
+    return (
+        <>
+            <td>{text} </td>
+            <td>{value}</td>
+        </>
     )
 }
 export default StatisticsLine
