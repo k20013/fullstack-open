@@ -1,13 +1,13 @@
 const Total = ({ parts }) => {
 
-    const [ part1, part2, part3 ] = parts;
+    const total = parts.map((p) => p.exercises);
+    // console.log(total)
 
     return (
         <p>
-            Number of exercises {
-                part1.exercises + part2.exercises + part3.exercises
-            }
+            Number of exercises {total.reduce((a, c) => a + c, 0)}
         </p>
     )
 }
+// a = "acumulator" | c = "current value"
 export default Total
