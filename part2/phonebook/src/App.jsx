@@ -5,7 +5,7 @@ import Form from './components/Form';
 const App = () => {
 
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040- 1234567' }
   ]);
 
   return (
@@ -18,7 +18,7 @@ const App = () => {
       <ul>
         {
           persons.map((p) => {
-            return <li key={p.name}>{p.name}</li>
+            return <li key={p.name}>{`${p.name} ${p.number}`}</li>
           })
         }
       </ul>
