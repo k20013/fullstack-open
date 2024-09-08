@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-const Form = ({ persons, setPersons }) => {
+const Form = ({ state }) => {
+
+    const [persons, setPersons] = state
 
     const [newName, setNewName] = useState('');
     const nameHandler = (e) => setNewName(e.target.value);
