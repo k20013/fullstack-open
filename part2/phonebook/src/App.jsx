@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import Filter from './components/filter';
 import Form from './components/person-form';
 import Persons from './components/persons';
+
+import { getAll } from './services';
 
 const App = () => {
 
@@ -11,11 +12,8 @@ const App = () => {
   const [found, setFound] = useState([]); // El array de resultads de la busqueda
 
   useEffect(() => {
-    console.log("effect");
-
-    axios.get("http://localhost:3001/persons").then(response => {
-      console.log('promise fulfilled', response)
-      setPersons(response.data)})
+    getAll()
+    .then(data => setPersons(data))
   }, [])
 
   return (
