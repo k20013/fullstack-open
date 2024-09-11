@@ -1,6 +1,12 @@
+import { deletePerson } from "../services";
+
 const Persons = ({ persons, found }) => {
 
-    const renderPerson = (p) => <li key={p.name}>{`${p.name} ${p.number}`}</li>;
+    const renderPerson = (p) => 
+    <div key={p.id}>
+        <li >{`${p.name} ${p.number}`}</li>
+        <button onClick={() => confirm(`Do you want delete ${p.name}`) && deletePerson(p.id)}>Delete</button>
+    </div>;
 
 
     return (

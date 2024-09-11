@@ -20,3 +20,12 @@ export const createPerson = async (person) => {
         return alert(error.messagge);
     }
 };
+
+export const deletePerson = async (id) => {
+    try {
+        const res = await axios.delete(`${URL}/${id}`);
+        return res.data;
+    } catch (error) {
+        return alert(error.message);
+    }
+}
