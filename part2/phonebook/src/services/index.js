@@ -29,3 +29,12 @@ export const deletePerson = async (id) => {
         return alert(error.message);
     }
 }
+
+export const updatePerson = async (id, person) => {
+    try {
+        const res = await axios.put(`${URL}/${id}`, person);
+        return res.data;
+    } catch (error) {
+        return alert(error.message);
+    }
+}

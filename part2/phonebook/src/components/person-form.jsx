@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { createPerson } from '../services';
+import { createPerson, updatePerson } from '../services';
 
 const Form = ({ state }) => {
 
@@ -13,18 +13,26 @@ const Form = ({ state }) => {
 
     const addPerson = (e) => {
 
-        e.preventDefault(); // Evita que se recaaague la pagina
+        // e.preventDefault(); // Evita que se recaaague la pagina
 
-        if(!newName || !newNumber) return alert("Please, fill the form well")
-        
-        if(persons.filter((element) => element.name === newName).length) {
+        if(!newName || !newNumber) return alert("Please, fill the form well"); // Si fataran datos
 
+        // Si la persona ya existe ---------
+
+        const repeated = persons.find((p) => p.name === newName);
+
+        if(repeated && repeated.number !== newNumber) {
+
+            confirm(`${repeated.name} is already added to phonebook, repleace the old number with a new one?`)
+            && updatePerson(repeated.id, { name: newName, number: newNumber });;
+
+        } else if(repeated) {
             newName === "Arto Hellas" ? alert(`Arto Hellas is already added to phonebook`)
             : alert(`${newName} is already added to phonebook`);
 
         } else {
-            console.log(createPerson({ name: newName, number: newNumber })); //Crea la persona
-            setPersons([...persons, { name: newName, number: newNumber }]); // Actualiza el estado para que el cliente perciba el cambio
+            createPerson({ name: newName, number: newNumber }); //Crea la persona
+            // setPersons([...persons, { name: newName, number: newNumber }]); // Actualiza el estado para que el cliente perciba el cambio
         }
 
         setNewName(""); // Limpia el estado del manejador de eventos
