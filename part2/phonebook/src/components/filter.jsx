@@ -1,9 +1,4 @@
-const Filter = ({ setFound, persons }) => {
-
-    const searchHandler = (e) => {
-        const result = persons.filter((person) => person.name.toLowerCase().includes(e.target.value));
-        setFound(result);
-    }
+const Filter = ({ searchHandler }) => {
 
     return (
         <div>
