@@ -33,7 +33,15 @@ const App = () => {
     const repeated = persons.find((p) => p.name === newPerson.name);
     if (repeated && repeated.number !== newPerson.number) { // Actualizar el número de telefono
       confirm(`${repeated.name} is already added to phonebook, repleace the old number with a new one?`)
-        && personsServices.update(repeated.id, newPerson);
+        && personsServices.update(repeated.id, newPerson)
+          .then((res) => {
+            setNotfication(`Udated ${res.name}`);
+            setTimeout(() => {
+              setNotfication(null);
+            }, 5000)
+            personsServices.getAll()
+              .then(data => setPersons(data))
+          });
 
     } else if (repeated) { // La persona ya existe
       repeated.name === "Arto Hellas" ? alert(`Arto Hellas is already added to phonebook`)
@@ -61,9 +69,9 @@ const App = () => {
     personsServices.remove(id).then(
       res => {
         setNotfication(`Deleted ${res.name}`);
-          setTimeout(() => {
-            setNotfication(null);
-          }, 5000)
+        setTimeout(() => {
+          setNotfication(null);
+        }, 5000)
       }
     )
   }
