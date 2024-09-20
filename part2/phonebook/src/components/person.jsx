@@ -1,6 +1,4 @@
-import personServices from '../services/persons';
-
-const Person = ({ person }) => {
+const Person = ({ person, removeHandler }) => {
 
     return (
         <div>
@@ -9,7 +7,7 @@ const Person = ({ person }) => {
 
             <button onClick={() => {
                 confirm(`Do you want delete ${person.name}`)
-                    && personServices.remove(person.id)
+                    && removeHandler(person.id)
                 }}
             >
             Delete

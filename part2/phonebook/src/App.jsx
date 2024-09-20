@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import './index.css';
 
+import Notification from './components/notification';
 import Filter from './components/filter';
 import PersonForm from './components/person-form';
 import Person from './components/person';
@@ -11,6 +13,7 @@ const App = () => {
   const [persons, setPersons] = useState([]);
   const [found, setFound] = useState([]); // El array de resultads de la busqueda
   const [newPerson, setNewPerson] = useState({});
+  const [notification, setNotfication] = useState("");
 
   useEffect(() => {
     personsServices.getAll()
@@ -39,7 +42,10 @@ const App = () => {
     } else { // Crear la persona
       personsServices.create(newPerson)
         .then((res) => {
-          console.group(res);
+          setNotfication(`Added ${res.data.name}`);
+          setTimeout(() => {
+            setNotfication(null);
+          }, 5000)
           personsServices.getAll()
             .then(data => setPersons(data))
         });
@@ -51,9 +57,22 @@ const App = () => {
   const newPersonNameHandler = (e) => setNewPerson({ ...newPerson, name: e.target.value });
   const newPersonNumbereHandler = (e) => setNewPerson({ ...newPerson, number: e.target.value });
 
+  const removePersonHandler = (id) => {
+    personsServices.remove(id).then(
+      res => {
+        setNotfication(`Deleted ${res.name}`);
+          setTimeout(() => {
+            setNotfication(null);
+          }, 5000)
+      }
+    )
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification content={notification} />
 
       <Filter searchHandler={searchHandler} />
 
@@ -63,8 +82,8 @@ const App = () => {
 
       <ul>
         {
-          found.length ? found.map(p => <Person person={p} key={p.id} />)
-          : persons.map(p => <Person person={p} key={p.id} />)
+          found.length ? found.map(p => <Person person={p} removeHandler={removePersonHandler} key={p.id} />)
+            : persons.map(p => <Person person={p} removeHandler={removePersonHandler} key={p.id} />)
         }
       </ul>
 
