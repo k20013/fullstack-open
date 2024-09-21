@@ -2,41 +2,24 @@ import axios from "axios";
 
 const URL = "http://localhost:3001/persons";
 
-const getAll = async () => {
-    try {
-        const res = await axios.get(URL);
-        // console.log(res.data)
-        return res.data;
-    } catch (error) {
-        return alert(error.messagge);
-    }
+const getAll = () => {
+    const request = axios.get(URL);
+    return request.then(res => res.data);
 };
 
-const create = async (person) => {
-    try {
-        const res = await axios.post(URL, person);
-        return res;
-    } catch (error) {
-        return alert(error.messagge);
-    }
+const create = (person) => {
+    const request = axios.post(URL, person);
+    return request.then(res => res.data);
 };
 
-const remove = async (id) => {
-    try {
-        const res = await axios.delete(`${URL}/${id}`);
-        return res.data;
-    } catch (error) {
-        return alert(error.message);
-    }
+const remove = (id) => {
+    const request = axios.delete(`${URL}/${id}`);
+    return request.then(res => res.data);
 }
 
-const update = async (id, person) => {
-    try {
-        const res = await axios.put(`${URL}/${id}`, person);
-        return res.data;
-    } catch (error) {
-        return alert(error.message);
-    }
+const update = (id, person) => {
+    const request = axios.put(`${URL}/${id}`, person);
+    return request.then(res => res.data);
 }
 
 export default {
