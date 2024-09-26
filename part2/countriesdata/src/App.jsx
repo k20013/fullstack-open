@@ -28,6 +28,12 @@ function App() {
     : setFound(matches);
   }
 
+  const showCountry = (target) => {
+    countriesServices.getCountry(target).then(
+      data => setWanted(data)
+    )
+  } 
+
   return (
     <>
       <div>
@@ -41,7 +47,9 @@ function App() {
         {
           found.length > 1 && found.length < 10
           && <ul>
-            {found.map(element => <li key={element}>{element}</li>)}
+            {found.map(element => <li key={element}>
+                {element} <button onClick={() => showCountry(element)}>show</button>
+              </li>)}
           </ul>
         }
         {
