@@ -60,7 +60,7 @@ const App = () => {
     } else { // Crear la persona
       personsServices.create(newPerson)
         .then((res) => {
-          setNotfication({ isError: false, content: `Added ${res.name}` });
+          setNotfication({ isError: false, content: `Added ${newPerson.name}` });
           timer();
           personsServices.getAll()
             .then(data => setPersons(data))
