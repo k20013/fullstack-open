@@ -39,23 +39,27 @@ const App = () => {
       timer();
     }
 
-    const repeated = persons.find((p) => p.name === newPerson.name);
-    if (repeated && repeated.number !== newPerson.number) { // Actualizar el número de telefono
+    const repeated = persons.find((p) => p.name === newPerson.name); // Busqueda de repetidos
+
+    if (repeated && repeated.number !== newPerson.number) { // Actualizar el número de telefono      
       confirm(`${repeated.name} is already added to phonebook, repleace the old number with a new one?`)
-        && personsServices.update(repeated.id, newPerson).then((res) => {
-          setNotfication({ isError: false, content: `Updated ${res.name}` });
-          timer();
-          personsServices.getAll()
-            .then(data => setPersons(data))
-        }
+
+        && personsServices.update(repeated.id, newPerson).then(
+          (res) => {
+            setNotfication({ isError: false, content: `Updated ${res.name}` });
+            timer();
+            personsServices.getAll().then(
+              data => setPersons(data)
+            )
+          }
         ).catch(error => {
-          setNotfication({ isError: true, content: `Information of ${repeated.name} has already been removed from server` });
+          setNotfication({ isError: true, content: error.response.data.error }); //`Information of ${repeated.name} has already been removed from server`
           timer();
         })
 
     } else if (repeated) { // La persona ya existe
       repeated.name === "Arto Hellas" ? alert(`Arto Hellas is already added to phonebook`)
-        : setNotfication({ isError: true, content: `${repeated.name} is already added to phonebook`});
+        : setNotfication({ isError: true, content: `${repeated.name} is already added to phonebook` });
 
     } else { // Crear la persona
       personsServices.create(newPerson)
@@ -66,7 +70,7 @@ const App = () => {
             .then(data => setPersons(data))
         }
         ).catch(error => {
-          setNotfication({ isError: true, content: error.message })
+          setNotfication({ isError: true, content: error.response.data.error })
           timer();
         });
     }
@@ -86,7 +90,7 @@ const App = () => {
         //   .then(data => setPersons(data));
       }
     ).catch(error => {
-      setNotfication({ isError: true, content: error.message});
+      setNotfication({ isError: true, content: error.message });
       timer();
     }
     )
