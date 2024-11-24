@@ -1,3 +1,5 @@
+const lodash = require('lodash');
+
 const dummy = (blogs) => {
     const array = blogs; // Recibe el array
     return 1; // Siempre retorna el valor 1
@@ -26,6 +28,29 @@ const favoriteBlog = (blogs) => {
         return favorite;
     } else {
         return {};
+    }
+}
+
+const mostBlogs = (blogs) => {
+
+    if (blogs.length === 1) {
+
+        return {
+            author: blogs[0].author,
+            blogs: 1
+        }
+
+    } else if (blogs.length > 1) {
+        const authors = Object.entries(
+            lodash.countBy(blogs, 'author')
+        );
+        const wanted = authors[authors.length - 1];
+        return {
+            author: wanted[0],
+            blogs: wanted[1]
+        }
+    } else {
+        return {}
     }
 }
 
@@ -79,11 +104,11 @@ const favoriteBlog = (blogs) => {
 //         __v: 0
 //     }
 // ];
-const blogs = [];
-console.log(favoriteBlog(blogs))
+// console.log(mostBlogs(blogs))
 
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
 }
