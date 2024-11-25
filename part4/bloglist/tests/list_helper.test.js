@@ -163,4 +163,37 @@ describe('most blogs', () => {
             )
         }
     );
-})
+});
+
+describe('most likes', () => {
+    test('of empty list is an empty object',
+        () => {
+            assert.deepStrictEqual(
+                listHelper.mostLikes([]),
+                {}
+            )
+        }
+    );
+    test('when list has only one blog, are those likes',
+        () => {
+            assert.deepStrictEqual(
+                listHelper.mostLikes(listWithOneBlog),
+                {
+                    author: 'Edsger W. Dijkstra',
+                    likes: 5
+                }
+            )
+        }
+    );
+    test('of a bigger list, likes are calculated well',
+        () => {
+            assert.deepStrictEqual(
+                listHelper.mostLikes(listWithManyBlogs),
+                {
+                    author: 'Edsger W. Dijkstra',
+                    likes: 17
+                }
+            )
+        }
+    );
+});

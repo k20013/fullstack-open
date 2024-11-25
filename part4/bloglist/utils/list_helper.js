@@ -54,7 +54,32 @@ const mostBlogs = (blogs) => {
     }
 }
 
-// const blogs = [
+const mostLikes = (blogs) => {
+
+    if (blogs.length === 1) {
+        const { author, likes } = blogs[0];
+        return { author, likes }
+
+    } else if (blogs.length > 1) {
+        const authors = lodash.groupBy(blogs, 'author');
+        let result = [];
+
+        lodash.forIn(authors, (value, key) => {
+            result.push({
+                author: key,
+                likes: lodash.map(
+                    value, 'likes'
+                ).reduce((x, y) => x + y, 0)
+            })
+        });
+        return lodash.sortBy(result, 'likes')[result.length - 1];
+
+    } else {
+        return {}
+    }
+};
+
+// const lorem = [
 //     {
 //         _id: "5a422a851b54a676234d17f7",
 //         title: "React patterns",
@@ -104,11 +129,12 @@ const mostBlogs = (blogs) => {
 //         __v: 0
 //     }
 // ];
-// console.log(mostBlogs(blogs))
+// console.log(mostLikes(lorem))
 
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
